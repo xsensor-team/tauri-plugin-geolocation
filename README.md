@@ -34,6 +34,15 @@ make sure to add the following permission to your `info.plist`
 <string></string>
 ```
 
+### Android instructions
+
+make sure to add location permissions to your `AndroidManifest.xml`
+
+```xml
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+```
+
 ## Usage
 
 See the [examples](https://github.com/xsensor-team/tauri-plugin-geolocation/tree/main/examples/tauri-app) for more information
