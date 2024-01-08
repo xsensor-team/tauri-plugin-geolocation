@@ -14,7 +14,6 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.tasks.CancellationTokenSource
 
-@TauriPlugin
 class GeolocationPlugin(private val activity: Activity) : Plugin(activity) {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
