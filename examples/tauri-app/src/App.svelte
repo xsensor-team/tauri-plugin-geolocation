@@ -1,4 +1,5 @@
 <script>
+  import { invoke } from '@tauri-apps/api/core';
   import Greet from './lib/Greet.svelte'
   import { getLocation } from 'tauri-plugin-geolocation-api'
 
@@ -10,8 +11,25 @@
 
 	async function _execute() {
     try {
+      // check permission state
+      const permission = await invoke('plugin:geolocation|checkPermissions')
+      // if (permission.fineLocation === 'prompt-with-rationale') {
+      //   // show information to the user about why permission is needed
+      // }
+
+      console.log("permission", permission)
+
+      // request permission
+      if (permission.fineLocation.startsWith('prompt')) {
+        const state = await invoke('plugin:geolocation|requestPermissions', { permissions: ['fineLocation'] })
+        console.log("state", state)
+        const result = await getLocation()
+        updateResponse(result)
+        return
+      } 
 
       const result = await getLocation()
+      console.log("result", result)
       updateResponse(result)
     }catch(e) {
       updateResponse(e)

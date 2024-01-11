@@ -1,43 +1,55 @@
-import android.Manifest
-import android.content.pm.PackageManager
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+package com.plugin.geolocation
 
-class GeolocationPlugin(private val activity: Activity) : Plugin(activity), LocationListener {
-    // ... existing code ...
+import android.app.Activity
+import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat
+import android.Manifest
+import app.tauri.annotation.Command
+import app.tauri.plugin.JSObject
+import app.tauri.plugin.Plugin
+import app.tauri.plugin.Invoke
+import android.location.Location
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.FusedLocationProviderClient
+import app.tauri.annotation.TauriPlugin
+import app.tauri.annotation.Permission
+import android.util.Log
+
+@TauriPlugin(
+    permissions = [
+        Permission(strings = [Manifest.permission.ACCESS_FINE_LOCATION], alias = "fineLocation")
+    ]
+)
+class GeolocationPlugin(private val myActivity: Activity) : Plugin(myActivity) {
+    private val fusedLocationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(myActivity)
 
     @Command
     fun getLocation(invoke: Invoke) {
-        this.invoke = invoke
-     val response = JSObject()
-                response.put("error", "Permission denied by user")
-                invoke?.reject(response)
-            // requestPermissions()
+        // ask for user permission
+        if (ContextCompat.checkSelfPermission(myActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            invoke?.reject("403:PermissionNotGranted")
+        }
 
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location: Location? ->
+                Log.d("DebugTag", "success location")
+                if (location != null) {
+                    val response = JSObject()
+                    val loc = JSObject()
+
+                    loc.put("lat", location.latitude)
+                    loc.put("lng", location.longitude)
+
+                    response.put("value", loc)
+                    invoke.resolve(response)
+                } else {
+                    invoke.reject("No location found")
+                }
+            }
+            .addOnFailureListener { exception: Exception ->
+                val errorMessage = exception.message ?: "Unknown error"
+
+                invoke?.reject(errorMessage)
+            }
     }
-
-    // private fun requestPermissions() {
-    //     ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), PERMISSION_REQUEST_CODE)
-    // }
-
-    // override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-    //     if (requestCode == PERMISSION_REQUEST_CODE) {
-    //         if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-    //             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, this)
-
-    //             // getLocation(invoke)
-    //         } else {
-    //             // User denied the permission
-    //             val response = JSObject()
-    //             response.put("error", "Permission denied by user")
-    //             invoke?.reject(response)
-    //         }
-    //     }
-    // }
-
-    // companion object {
-    //     private const val PERMISSION_REQUEST_CODE = 100
-    // }
-
-    // ... existing location listener methods ...
 }
