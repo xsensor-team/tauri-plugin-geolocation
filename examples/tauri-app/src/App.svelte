@@ -13,15 +13,15 @@
     try {
       // check permission state
       const permission = await invoke('plugin:geolocation|checkPermissions')
-      // if (permission.fineLocation === 'prompt-with-rationale') {
+      // if (permission.location === 'prompt-with-rationale') {
       //   // show information to the user about why permission is needed
       // }
 
       console.log("permission", permission)
 
       // request permission
-      if (permission.fineLocation.startsWith('prompt')) {
-        const state = await invoke('plugin:geolocation|requestPermissions', { permissions: ['fineLocation'] })
+      if (permission.location.startsWith('prompt')) {
+        const state = await invoke('plugin:geolocation|requestPermissions', { permissions: ['location'] })
         console.log("state", state)
         const result = await getLocation()
         updateResponse(result)

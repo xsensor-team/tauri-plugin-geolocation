@@ -17,7 +17,12 @@ import android.util.Log
 
 @TauriPlugin(
     permissions = [
-        Permission(strings = [Manifest.permission.ACCESS_FINE_LOCATION], alias = "fineLocation")
+        Permission(strings = [
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ],
+            alias = "location"
+        )
     ]
 )
 class GeolocationPlugin(private val myActivity: Activity) : Plugin(myActivity) {
@@ -27,7 +32,10 @@ class GeolocationPlugin(private val myActivity: Activity) : Plugin(myActivity) {
     fun getLocation(invoke: Invoke) {
         // ask for user permission
         if (ContextCompat.checkSelfPermission(myActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            invoke?.reject("403:PermissionNotGranted")
+            if (ContextCompat.checkSelfPermission(myActivity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                invoke?.reject("403:PermissionNotGranted")
+                return
+            }
         }
 
         fusedLocationClient.lastLocation
