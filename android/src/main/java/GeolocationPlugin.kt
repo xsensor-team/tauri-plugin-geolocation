@@ -42,13 +42,10 @@ class GeolocationPlugin(private val myActivity: Activity) : Plugin(myActivity) {
             .addOnSuccessListener { location: Location? ->
                 Log.d("DebugTag", "success location")
                 if (location != null) {
-                    val response = JSObject()
-                    val loc = JSObject()
+                    val response = JSObject()                  
 
-                    loc.put("lat", location.latitude)
-                    loc.put("lng", location.longitude)
-
-                    response.put("value", loc)
+                    response.put("lat", location.latitude)
+                    response.put("lng", location.longitude)
                     invoke.resolve(response)
                 } else {
                     invoke.reject("No location found")
