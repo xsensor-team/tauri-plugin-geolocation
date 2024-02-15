@@ -12,5 +12,3 @@ yarn.lock
 /target
 Cargo.lock
 node_modules/
-
-examples/
