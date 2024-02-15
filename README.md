@@ -48,9 +48,9 @@ make sure to add location permissions to your `AndroidManifest.xml`
 See the [examples](https://github.com/xsensor-team/tauri-plugin-geolocation/tree/main/examples/tauri-app) for more information
 
 ```javascript
-import { getlocation } from 'tauri-plugin-geolocation-api'
+import { getLocation } from 'tauri-plugin-geolocation-api'
 
  ...
 
-const {lat, lng} = await getlocation()
+const {lat, lng} = await getLocation()
 ```

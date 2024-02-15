@@ -11,8 +11,9 @@
     "resources:default",
     "menu:default",
     "tray:default",
-    "geolocation:allow-getlocation",
-    "geolocation:allow-checkPermissions"
+    "geolocation:allow-get-location",
+    "geolocation:allow-check-permissions",
+    "geolocation:allow-request-permissions"
   ],
   "platforms": ["linux", "macOS", "windows", "android", "iOS"]
 }

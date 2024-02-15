@@ -247,17 +247,45 @@
       "type": "string",
       "oneOf": [
         {
-          "description": "allow-getlocation -> Enables the getlocation command without any pre-configured scope.",
+          "description": "allow-check-permissions -> Enables the check_permissions command without any pre-configured scope.",
           "type": "string",
           "enum": [
-            "allow-getlocation"
+            "allow-check-permissions"
           ]
         },
         {
-          "description": "deny-getlocation -> Denies the getlocation command without any pre-configured scope.",
+          "description": "deny-check-permissions -> Denies the check_permissions command without any pre-configured scope.",
           "type": "string",
           "enum": [
-            "deny-getlocation"
+            "deny-check-permissions"
+          ]
+        },
+        {
+          "description": "allow-get-location -> Enables the get_location command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-get-location"
+          ]
+        },
+        {
+          "description": "deny-get-location -> Denies the get_location command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-get-location"
+          ]
+        },
+        {
+          "description": "allow-request-permissions -> Enables the request_permissions command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-request-permissions"
+          ]
+        },
+        {
+          "description": "deny-request-permissions -> Denies the request_permissions command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-request-permissions"
           ]
         }
       ]

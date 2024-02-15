@@ -1,7 +1,7 @@
 import { invoke } from "@tauri-apps/api/core";
 
-export async function getlocation() {
-  console.log("[tauri-plugin-geolocation] getlocation");
+export async function getLocation() {
+  console.log("[tauri-plugin-geolocation] getLocation");
 
-  return await invoke("plugin:geolocation|getlocation");
+  return await invoke("plugin:geolocation|getLocation");
 }

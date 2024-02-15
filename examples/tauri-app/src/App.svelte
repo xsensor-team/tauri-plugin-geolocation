@@ -1,7 +1,7 @@
 <script>
   import { invoke } from '@tauri-apps/api/core';
   import Greet from './lib/Greet.svelte'
-  import { getlocation } from 'tauri-plugin-geolocation-api'
+  import { getLocation } from 'tauri-plugin-geolocation-api'
 
 	let response = ''
 
@@ -20,10 +20,11 @@
       console.log("permission", permission)
 
       // request permission
-      if (permission.location.startsWith('prompt')) {
+      if (permission?.location?.startsWith('prompt')) {
         const state = await invoke('plugin:geolocation|requestPermissions', { permissions: ['location'] })
         console.log("state", state)
-        const result = await getlocation()
+        const result = await getLocation()
+        
         updateResponse(result)
         return
       } 

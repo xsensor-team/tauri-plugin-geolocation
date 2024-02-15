@@ -280,17 +280,45 @@
           ]
         },
         {
-          "description": "geolocation:allow-getlocation -> Enables the getlocation command without any pre-configured scope.",
+          "description": "geolocation:allow-check-permissions -> Enables the check_permissions command without any pre-configured scope.",
           "type": "string",
           "enum": [
-            "geolocation:allow-getlocation"
+            "geolocation:allow-check-permissions"
           ]
         },
         {
-          "description": "geolocation:deny-getlocation -> Denies the getlocation command without any pre-configured scope.",
+          "description": "geolocation:allow-get-location -> Enables the get_location command without any pre-configured scope.",
           "type": "string",
           "enum": [
-            "geolocation:deny-getlocation"
+            "geolocation:allow-get-location"
+          ]
+        },
+        {
+          "description": "geolocation:allow-request-permissions -> Enables the request_permissions command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "geolocation:allow-request-permissions"
+          ]
+        },
+        {
+          "description": "geolocation:deny-check-permissions -> Denies the check_permissions command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "geolocation:deny-check-permissions"
+          ]
+        },
+        {
+          "description": "geolocation:deny-get-location -> Denies the get_location command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "geolocation:deny-get-location"
+          ]
+        },
+        {
+          "description": "geolocation:deny-request-permissions -> Denies the request_permissions command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "geolocation:deny-request-permissions"
           ]
         },
         {

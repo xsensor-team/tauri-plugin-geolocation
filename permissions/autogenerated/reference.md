@@ -1,10 +1,26 @@
 # Permissions
 
-## allow-getlocation
+## allow-check-permissions
 
-Enables the getlocation command without any pre-configured scope.
+Enables the check_permissions command without any pre-configured scope.
 
-## deny-getlocation
+## deny-check-permissions
 
-Denies the getlocation command without any pre-configured scope.
+Denies the check_permissions command without any pre-configured scope.
+
+## allow-get-location
+
+Enables the get_location command without any pre-configured scope.
+
+## deny-get-location
+
+Denies the get_location command without any pre-configured scope.
+
+## allow-request-permissions
+
+Enables the request_permissions command without any pre-configured scope.
+
+## deny-request-permissions
+
+Denies the request_permissions command without any pre-configured scope.
 

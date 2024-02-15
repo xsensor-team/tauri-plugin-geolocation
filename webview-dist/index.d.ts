@@ -1,1 +1,1 @@
-export declare function getlocation(): Promise<unknown>;
+export declare function getLocation(): Promise<unknown>;
