@@ -33,15 +33,6 @@ class GeolocationPlugin: Plugin {
     private var geolocationService = GeolocationService()
     private var invoke: Invoke?
 
-
-    @objc public override func checkPermissions(_ invoke: Invoke) {
-        invoke.resolve()
-    }
-
-    @objc public override func requestPermissions(_ invoke: Invoke) {
-        invoke.resolve()
-    }
-
     @objc public func getlocation(_ invoke: Invoke) throws {
         self.invoke = invoke
         geolocationService.onLocationUpdate = { [weak self] location in
