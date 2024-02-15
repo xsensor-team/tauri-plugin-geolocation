@@ -247,6 +247,20 @@
       "type": "string",
       "oneOf": [
         {
+          "description": "allow-checkPermissions -> Enables the checkPermissions command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-checkPermissions"
+          ]
+        },
+        {
+          "description": "deny-checkPermissions -> Denies the checkPermissions command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-checkPermissions"
+          ]
+        },
+        {
           "description": "allow-getLocation -> Enables the getLocation command without any pre-configured scope.",
           "type": "string",
           "enum": [
@@ -258,6 +272,20 @@
           "type": "string",
           "enum": [
             "deny-getLocation"
+          ]
+        },
+        {
+          "description": "allow-requestPermissions -> Enables the requestPermissions command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-requestPermissions"
+          ]
+        },
+        {
+          "description": "deny-requestPermissions -> Denies the requestPermissions command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-requestPermissions"
           ]
         }
       ]
