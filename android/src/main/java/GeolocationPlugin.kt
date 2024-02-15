@@ -29,7 +29,7 @@ class GeolocationPlugin(private val myActivity: Activity) : Plugin(myActivity) {
     private val fusedLocationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(myActivity)
 
     @Command
-    fun getLocation(invoke: Invoke) {
+    fun getlocation(invoke: Invoke) {
         // ask for user permission
         if (ContextCompat.checkSelfPermission(myActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (ContextCompat.checkSelfPermission(myActivity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

@@ -1,4 +1,4 @@
-const COMMANDS: &[&str] = &["getLocation", "checkPermissions", "requestPermissions"];
+const COMMANDS: &[&str] = &["getlocation"];
 
 fn main() {
     tauri_plugin::Builder::new(COMMANDS)

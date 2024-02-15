@@ -9,9 +9,9 @@ exclude = ["/examples", "/webview-dist", "/webview-src", "/node_modules"]
 links = "tauri-plugin-geolocation"
 
 [dependencies]
-tauri = { version = "2.0.0-beta.2" }
+tauri = { path = "../../../Repositories/tauri/core/tauri" }
 serde = "1.0"
 thiserror = "1.0"
 
 [build-dependencies]
-tauri-plugin = { version = "2.0.0-beta.1", features = ["build"] }
+tauri-plugin = { path = "../../../Repositories/tauri/core/tauri-plugin", features = ["build"] }

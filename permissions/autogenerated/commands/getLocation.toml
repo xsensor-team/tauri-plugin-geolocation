@@ -3,11 +3,11 @@
 "$schema" = "../../schemas/schema.json"
 
 [[permission]]
-identifier = "allow-getLocation"
-description = "Enables the getLocation command without any pre-configured scope."
-commands.allow = ["getLocation"]
+identifier = "allow-getlocation"
+description = "Enables the getlocation command without any pre-configured scope."
+commands.allow = ["getlocation"]
 
 [[permission]]
-identifier = "deny-getLocation"
-description = "Denies the getLocation command without any pre-configured scope."
-commands.deny = ["getLocation"]
+identifier = "deny-getlocation"
+description = "Denies the getlocation command without any pre-configured scope."
+commands.deny = ["getlocation"]
