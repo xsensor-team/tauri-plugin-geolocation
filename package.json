@@ -20,6 +20,6 @@
     "typescript": "4.7.3"
   },
   "dependencies": {
-    "tslib": "^2.6.2"
+    "tslib": "^2.6.3"
   }
 }
