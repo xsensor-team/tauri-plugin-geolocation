@@ -1,18 +1,19 @@
 <script>
-  import { invoke } from '@tauri-apps/api/core';
-  import Greet from './lib/Greet.svelte'
-  import { getLocation } from 'tauri-plugin-geolocation-api'
+  import { invoke } from "@tauri-apps/api/core"
+  import Greet from "./lib/Greet.svelte"
+  import { startLocationUpdates } from "tauri-plugin-geolocation-api"
+  import { listen } from "@tauri-apps/api/event"
 
-	let response = ''
+  let response = ""
 
-	function updateResponse(returnValue) {
-		response += `[${new Date().toLocaleTimeString()}]` + (typeof returnValue === 'string' ? returnValue : JSON.stringify(returnValue)) + '<br>'
-	}
+  function updateResponse(returnValue) {
+    response = returnValue
+  }
 
-	async function _execute() {
+  async function _execute() {
     try {
       // check permission state
-      const permission = await invoke('plugin:geolocation|checkPermissions')
+      const permission = await invoke("plugin:geolocation|checkPermissions")
       // if (permission.location === 'prompt-with-rationale') {
       //   // show information to the user about why permission is needed
       // }
@@ -20,22 +21,28 @@
       console.log("permission", permission)
 
       // request permission
-      if (permission?.location?.startsWith('prompt')) {
-        const state = await invoke('plugin:geolocation|requestPermissions', { permissions: ['location'] })
+      if (permission?.location?.startsWith("prompt")) {
+        const state = await invoke("plugin:geolocation|requestPermissions", {
+          permissions: ["location"]
+        })
         console.log("state", state)
-        const result = await getLocation()
-        
-        updateResponse(result)
-        return
-      } 
+        await startLocationUpdates()
 
-      const result = await getLocation()
-      console.log("result", result)
-      updateResponse(result)
-    }catch(e) {
+        const unlisten = listen("location-updated", async (event) => {
+          updateResponse(event)
+        })
+
+        return
+      }
+      await startLocationUpdates()
+
+      const unlisten = listen("location-updated", async (event) => {
+        updateResponse(event)
+      })
+    } catch (e) {
       updateResponse(e)
     }
-	}
+  }
 </script>
 
 <main class="container">
@@ -53,19 +60,16 @@
     </a>
   </div>
 
-  <p>
-    Click on the Tauri, Vite, and Svelte logos to learn more.
-  </p>
+  <p>Click on the Tauri, Vite, and Svelte logos to learn more.</p>
 
   <div class="row">
     <Greet />
   </div>
 
   <div>
-    <button on:click="{_execute}">Execute</button>
+    <button on:click={_execute}>Execute</button>
     <div>{@html response}</div>
   </div>
-
 </main>
 
 <style>

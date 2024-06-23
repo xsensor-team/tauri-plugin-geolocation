@@ -11,7 +11,8 @@
     "resources:default",
     "menu:default",
     "tray:default",
-    "geolocation:allow-get-location",
+    "geolocation:allow-startLocationUpdates",
+    "geolocation:allow-stopLocationUpdates",
     "geolocation:allow-check-permissions",
     "geolocation:allow-request-permissions"
   ],

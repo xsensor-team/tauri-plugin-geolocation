@@ -60,7 +60,7 @@
       "timestampUrl": ""
     }
   },
-  "identifier": "com.tauri.plugin-geolocation",
+  "identifier": "com.tauri.pluginGeolocation",
   "plugins": {},
   "productName": "tauri-app",
   "version": "0.0.0"

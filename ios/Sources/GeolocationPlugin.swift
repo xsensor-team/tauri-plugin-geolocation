@@ -1,52 +1,72 @@
+import CoreLocation
 import SwiftRs
 import Tauri
-import UIKit
-import WebKit
-import CoreLocation
 
 class GeolocationService: NSObject, CLLocationManagerDelegate {
-    private let locationManager = CLLocationManager()
-    var onLocationUpdate: ((CLLocation) -> Void)?
-    var onLocationFail: ((Error) -> Void)?
+  private let locationManager = CLLocationManager()
+  var onLocationUpdate: ((CLLocation) -> Void)?
+  var onLocationFail: ((Error) -> Void)?
 
-    override init() {
-        super.init()
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-    }
+  override init() {
+    super.init()
+    locationManager.delegate = self
+    locationManager.requestWhenInUseAuthorization()
+    locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    locationManager.distanceFilter = 10  // Update every 10 meters
+  }
 
-    func startUpdatingLocation() {
-        locationManager.startUpdatingLocation()
-    }
+  func startUpdatingLocation() {
+    locationManager.startUpdatingLocation()
+  }
 
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        onLocationUpdate?(location)
-    }
+  func stopUpdatingLocation() {
+    locationManager.stopUpdatingLocation()
+  }
 
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        onLocationFail?(error)
-    }
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    guard let location = locations.last else { return }
+    onLocationUpdate?(location)
+  }
+
+  func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    onLocationFail?(error)
+  }
 }
 
 class GeolocationPlugin: Plugin {
-    private var geolocationService = GeolocationService()
-    private var invoke: Invoke?
+  private var geolocationService = GeolocationService()
 
-    @objc public func getLocation(_ invoke: Invoke) throws {
-        self.invoke = invoke
-        geolocationService.onLocationUpdate = { [weak self] location in
-            let locationData = ["lat": location.coordinate.latitude, "lng": location.coordinate.longitude]
-            self?.invoke?.resolve(locationData)
-        }
-        geolocationService.onLocationFail = { [weak self] error in
-            self?.invoke?.reject(error.localizedDescription)
-        }
-        geolocationService.startUpdatingLocation()
+  @objc public func startLocationUpdates(_ invoke: Invoke) throws {
+    geolocationService.onLocationUpdate = { [weak self] location in
+      self?.trigger(
+        "locationUpdate",
+        data: [
+          "latitude": location.coordinate.latitude,
+          "longitude": location.coordinate.longitude,
+          "accuracy": location.horizontalAccuracy,
+          "altitude": location.altitude,
+          "timestamp": location.timestamp.timeIntervalSince1970 * 1000,  // Convert to milliseconds
+        ]
+      )
     }
+
+    geolocationService.onLocationFail = { [weak self] error in
+      self?.trigger(
+        "locationError", data: ["message": error.localizedDescription]
+      )
+    }
+
+    geolocationService.startUpdatingLocation()
+    invoke.resolve([:])
+  }
+
+  @objc public func stopLocationUpdates(_ invoke: Invoke) throws {
+    geolocationService.stopUpdatingLocation()
+    invoke.resolve([:])
+  }
 }
 
 @_cdecl("init_plugin_geolocation")
 func initPlugin() -> Plugin {
-    return GeolocationPlugin()
+  return GeolocationPlugin()
 }

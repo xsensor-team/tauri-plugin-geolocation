@@ -309,20 +309,6 @@
           ]
         },
         {
-          "description": "allow-get-location -> Enables the get_location command without any pre-configured scope.",
-          "type": "string",
-          "enum": [
-            "allow-get-location"
-          ]
-        },
-        {
-          "description": "deny-get-location -> Denies the get_location command without any pre-configured scope.",
-          "type": "string",
-          "enum": [
-            "deny-get-location"
-          ]
-        },
-        {
           "description": "allow-request-permissions -> Enables the request_permissions command without any pre-configured scope.",
           "type": "string",
           "enum": [
@@ -334,6 +320,34 @@
           "type": "string",
           "enum": [
             "deny-request-permissions"
+          ]
+        },
+        {
+          "description": "allow-startLocationUpdates -> Enables the startLocationUpdates command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-startLocationUpdates"
+          ]
+        },
+        {
+          "description": "deny-startLocationUpdates -> Denies the startLocationUpdates command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-startLocationUpdates"
+          ]
+        },
+        {
+          "description": "allow-stopLocationUpdates -> Enables the stopLocationUpdates command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-stopLocationUpdates"
+          ]
+        },
+        {
+          "description": "deny-stopLocationUpdates -> Denies the stopLocationUpdates command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-stopLocationUpdates"
           ]
         }
       ]

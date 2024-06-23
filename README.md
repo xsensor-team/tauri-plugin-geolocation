@@ -48,9 +48,25 @@ make sure to add location permissions to your `AndroidManifest.xml`
 See the [examples](https://github.com/xsensor-team/tauri-plugin-geolocation/tree/main/examples/tauri-app) for more information
 
 ```javascript
-import { getLocation } from 'tauri-plugin-geolocation-api'
+import { startLocationUpdates } from 'tauri-plugin-geolocation-api'
 
  ...
+import { invoke } from "@tauri-apps/api/core"
+import { listen } from "@tauri-apps/api/event"
+import { useEffect } from "react"
 
-const {lat, lng} = await getLocation()
+export default function useListenToLocationUpdate() {
+  useEffect(() => {
+    invoke("plugin:geolocation|startLocationUpdates")
+
+    const unlisten = listen("location-updated", async (event) => {
+        // get geolocation info from event
+    })
+
+    return () => {
+      invoke("plugin:geolocation|stopLocationUpdates")
+      unlisten.then((f) => f())
+    }
+  }, [])
+}
 ```
