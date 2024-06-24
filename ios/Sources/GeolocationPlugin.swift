@@ -39,7 +39,7 @@ class GeolocationPlugin: Plugin {
   @objc public func startLocationUpdates(_ invoke: Invoke) throws {
     geolocationService.onLocationUpdate = { [weak self] location in
       self?.trigger(
-        "locationUpdate",
+        "locationUpdated",
         data: [
           "latitude": location.coordinate.latitude,
           "longitude": location.coordinate.longitude,
@@ -48,21 +48,30 @@ class GeolocationPlugin: Plugin {
           "timestamp": location.timestamp.timeIntervalSince1970 * 1000,  // Convert to milliseconds
         ]
       )
+      invoke.resolve([
+        "latitude": location.coordinate.latitude,
+        "longitude": location.coordinate.longitude,
+        "accuracy": location.horizontalAccuracy,
+        "altitude": location.altitude,
+        "timestamp": location.timestamp.timeIntervalSince1970 * 1000,  // Convert to milliseconds
+      ])
     }
 
     geolocationService.onLocationFail = { [weak self] error in
       self?.trigger(
         "locationError", data: ["message": error.localizedDescription]
       )
+
+      invoke.resolve(["message": error.localizedDescription])
     }
 
     geolocationService.startUpdatingLocation()
-    invoke.resolve([:])
+    // invoke.resolve(["message": "starting location updates"])
   }
 
   @objc public func stopLocationUpdates(_ invoke: Invoke) throws {
     geolocationService.stopUpdatingLocation()
-    invoke.resolve([:])
+    invoke.resolve(["message": "stopping location updates"])
   }
 }
 

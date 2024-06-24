@@ -22,21 +22,17 @@
 
       // request permission
       if (permission?.location?.startsWith("prompt")) {
-        const state = await invoke("plugin:geolocation|requestPermissions", {
+        await invoke("plugin:geolocation|requestPermissions", {
           permissions: ["location"]
         })
-        console.log("state", state)
-        await startLocationUpdates()
-
-        const unlisten = listen("location-updated", async (event) => {
-          updateResponse(event)
-        })
-
-        return
       }
-      await startLocationUpdates()
 
-      const unlisten = listen("location-updated", async (event) => {
+      const result = await startLocationUpdates()
+
+      console.log("result", result)
+
+      const unlisten = listen("locationUpdated", async (event) => {
+        console.log("event", event)
         updateResponse(event)
       })
     } catch (e) {
