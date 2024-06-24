@@ -1,4 +1,8 @@
-const COMMANDS: &[&str] = &["stopLocationUpdates", "startLocationUpdates"];
+const COMMANDS: &[&str] = &[
+    "stopLocationUpdates",
+    "startLocationUpdates",
+    "register_listener",
+];
 
 fn main() {
     tauri_plugin::Builder::new(COMMANDS)

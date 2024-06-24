@@ -13,6 +13,7 @@
     "tray:default",
     "geolocation:allow-startLocationUpdates",
     "geolocation:allow-stopLocationUpdates",
+    "geolocation:allow-register-listener",
     "geolocation:allow-check-permissions",
     "geolocation:allow-request-permissions"
   ],

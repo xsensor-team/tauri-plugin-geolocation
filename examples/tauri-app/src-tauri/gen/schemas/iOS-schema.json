@@ -324,6 +324,13 @@
           ]
         },
         {
+          "description": "geolocation:allow-register-listener -> Enables the register_listener command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "geolocation:allow-register-listener"
+          ]
+        },
+        {
           "description": "geolocation:allow-request-permissions -> Enables the request_permissions command without any pre-configured scope.",
           "type": "string",
           "enum": [
@@ -349,6 +356,13 @@
           "type": "string",
           "enum": [
             "geolocation:deny-check-permissions"
+          ]
+        },
+        {
+          "description": "geolocation:deny-register-listener -> Denies the register_listener command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "geolocation:deny-register-listener"
           ]
         },
         {

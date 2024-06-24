@@ -1,5 +1,5 @@
 <script>
-  import { invoke } from "@tauri-apps/api/core"
+  import { addPluginListener, invoke } from "@tauri-apps/api/core"
   import Greet from "./lib/Greet.svelte"
   import { startLocationUpdates } from "tauri-plugin-geolocation-api"
   import { listen } from "@tauri-apps/api/event"
@@ -31,9 +31,9 @@
 
       console.log("result", result)
 
-      const unlisten = listen("locationUpdated", async (event) => {
+      await addPluginListener("geolocation", "locationUpdate", (event) => {
         console.log("event", event)
-        updateResponse(event)
+        // dispatch(setCurrentLocation([lng, lat]))
       })
     } catch (e) {
       updateResponse(e)

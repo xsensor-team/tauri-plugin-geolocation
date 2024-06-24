@@ -2,6 +2,8 @@
 |------|-----|
 |`allow-check-permissions`|Enables the check_permissions command without any pre-configured scope.|
 |`deny-check-permissions`|Denies the check_permissions command without any pre-configured scope.|
+|`allow-register-listener`|Enables the register_listener command without any pre-configured scope.|
+|`deny-register-listener`|Denies the register_listener command without any pre-configured scope.|
 |`allow-request-permissions`|Enables the request_permissions command without any pre-configured scope.|
 |`deny-request-permissions`|Denies the request_permissions command without any pre-configured scope.|
 |`allow-startLocationUpdates`|Enables the startLocationUpdates command without any pre-configured scope.|
