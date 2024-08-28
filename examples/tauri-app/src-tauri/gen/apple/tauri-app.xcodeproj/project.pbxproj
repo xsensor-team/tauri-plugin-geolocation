@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		094A1ECD90ECD007825D95B3 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E625C1ABDB2D39CB77BF29 /* Security.framework */; };
 		1524BBF419A24C289873FCE0 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA1A066F7EDD869BC014BB9C /* Metal.framework */; };
+		5DCFDCE0989E0655641185BE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA38F7BF7C28E04DBA849965 /* LaunchScreen.storyboard */; };
 		5DDC8F8949AE56AB4B683F62 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5384EE0C649F19A31B462538 /* QuartzCore.framework */; };
 		6495EEEF2DFC12CB82351B2B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C42C09CE350D0304EDF85C59 /* UIKit.framework */; };
 		74C25A7912AFE30DBE96B590 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 234C7D371C7B526F7E893B15 /* assets */; };
@@ -31,6 +32,7 @@
 		9B11C2C873FB5A7B97B0605A /* tauri-app_iOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "tauri-app_iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC56A11F310BBFF30CCFEB63 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		B8DBF813DB5FCB214283D94D /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		BA38F7BF7C28E04DBA849965 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C42C09CE350D0304EDF85C59 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CA1A066F7EDD869BC014BB9C /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		CF0F15D9837DA9743995496A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -138,6 +140,7 @@
 			children = (
 				234C7D371C7B526F7E893B15 /* assets */,
 				CFDCAF660F4CA93110C8FB02 /* Assets.xcassets */,
+				BA38F7BF7C28E04DBA849965 /* LaunchScreen.storyboard */,
 				2ECFA35AFF2D5945783C3B8D /* Externals */,
 				90B7B06659AD5A7A7EE39662 /* Sources */,
 				48DF3F622809E7EBA4ED342A /* src */,
@@ -205,6 +208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A272DD02B0D36ACBCE73E26 /* Assets.xcassets in Resources */,
+				5DCFDCE0989E0655641185BE /* LaunchScreen.storyboard in Resources */,
 				74C25A7912AFE30DBE96B590 /* assets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,12 +230,13 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(SRCROOT)/target/aarch64-apple-ios/${CONFIGURATION}/deps/libtauri_app_lib.a",
-				"$(SRCROOT)/target/x86_64-apple-ios/${CONFIGURATION}/deps/libtauri_app_lib.a",
+				"$(SRCROOT)/Externals/x86_64/${CONFIGURATION}/libtauri_app_lib.a",
+				"$(SRCROOT)/Externals/arm64/${CONFIGURATION}/libtauri_app_lib.a",
+				"$(SRCROOT)/Externals/arm64-sim/${CONFIGURATION}/libtauri_app_lib.a",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "npm run tauri -- ios xcode-script -v --platform ${PLATFORM_DISPLAY_NAME:?} --sdk-root ${SDKROOT:?} --framework-search-paths \"${FRAMEWORK_SEARCH_PATHS:?}\" --header-search-paths \"${HEADER_SEARCH_PATHS:?}\" --gcc-preprocessor-definitions \"${GCC_PREPROCESSOR_DEFINITIONS:-}\" --configuration ${CONFIGURATION:?} ${FORCE_COLOR} ${ARCHS:?}";
+			shellScript = "npm run -- tauri ios xcode-script -v --platform ${PLATFORM_DISPLAY_NAME:?} --sdk-root ${SDKROOT:?} --framework-search-paths \"${FRAMEWORK_SEARCH_PATHS:?}\" --header-search-paths \"${HEADER_SEARCH_PATHS:?}\" --gcc-preprocessor-definitions \"${GCC_PREPROCESSOR_DEFINITIONS:-}\" --configuration ${CONFIGURATION:?} ${FORCE_COLOR} ${ARCHS:?}";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -274,7 +279,7 @@
 				"LIBRARY_SEARCH_PATHS[arch=arm64-sim]" = "$(inherited) $(PROJECT_DIR)/Externals/arm64-sim/$(CONFIGURATION) $(SDKROOT)/usr/lib/swift $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME) $(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)";
 				"LIBRARY_SEARCH_PATHS[arch=arm64]" = "$(inherited) $(PROJECT_DIR)/Externals/arm64/$(CONFIGURATION) $(SDKROOT)/usr/lib/swift $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME) $(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)";
 				"LIBRARY_SEARCH_PATHS[arch=x86_64]" = "$(inherited) $(PROJECT_DIR)/Externals/x86_64/$(CONFIGURATION) $(SDKROOT)/usr/lib/swift $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME) $(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tauri.tauri-app";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tauri.pluginGeolocation;
 				PRODUCT_NAME = "tauri-app";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -428,7 +433,7 @@
 				"LIBRARY_SEARCH_PATHS[arch=arm64-sim]" = "$(inherited) $(PROJECT_DIR)/Externals/arm64-sim/$(CONFIGURATION) $(SDKROOT)/usr/lib/swift $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME) $(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)";
 				"LIBRARY_SEARCH_PATHS[arch=arm64]" = "$(inherited) $(PROJECT_DIR)/Externals/arm64/$(CONFIGURATION) $(SDKROOT)/usr/lib/swift $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME) $(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)";
 				"LIBRARY_SEARCH_PATHS[arch=x86_64]" = "$(inherited) $(PROJECT_DIR)/Externals/x86_64/$(CONFIGURATION) $(SDKROOT)/usr/lib/swift $(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME) $(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tauri.tauri-app";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tauri.pluginGeolocation;
 				PRODUCT_NAME = "tauri-app";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
